@@ -9,7 +9,17 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
         // Private surfaces must never be indexed (Build Spec §31 / QA FUN-04).
-        disallow: ["/admin", "/admin/", "/api/", "/business-audit/result/", "/login", "/dashboard", "/account"],
+        disallow: [
+          "/admin",
+          "/admin/",
+          "/api/",
+          // Result pages are personal output; /search is a tool, not content.
+          "/business-audit/result/",
+          "/search",
+          "/login",
+          "/dashboard",
+          "/account",
+        ],
       },
     ],
     sitemap: `${base}/sitemap.xml`,
