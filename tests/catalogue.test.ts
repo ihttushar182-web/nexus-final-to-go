@@ -85,6 +85,37 @@ describe("product catalogue (§07 / §09)", () => {
       expect(plan.name.en.length).toBeGreaterThan(0);
     }
   });
+
+  it("keeps the SQL seed in step with this catalogue", async () => {
+    // The Postgres seed is a second source of truth for the same prices. Read it
+    // and compare, so a price edited in one place cannot silently disagree with
+    // the other. Amounts are whole taka in both files.
+    const { readFile } = await import("node:fs/promises");
+    const sql = await readFile("db/seed.sql", "utf8");
+    const block = sql.slice(sql.indexOf("insert into products"), sql.indexOf("on conflict (id) do update"));
+    const seeded = new Map<string, { original: number | null; current: number | null }>();
+    for (const match of block.matchAll(/\('([^']+)','([^']+)',[\s\S]*?(null|\d+),\s*(null|\d+),\s*'active'/g)) {
+      seeded.set(match[2], {
+        original: match[3] === "null" ? null : Number(match[3]),
+        current: match[4] === "null" ? null : Number(match[4]),
+      });
+    }
+
+    expect(seeded.size).toBeGreaterThan(0);
+    for (const [slug, price] of seeded) {
+      const product = getProduct(slug);
+      expect(product, `${slug} is seeded but missing from the catalogue`).toBeDefined();
+      expect(product?.originalPrice ?? null, `${slug} original price`).toBe(price.original);
+      expect(product?.currentPrice ?? null, `${slug} current price`).toBe(price.current);
+    }
+
+    // Every orderable product must also be seeded, or a fresh database cannot
+    // price it.
+    for (const product of products) {
+      if (product.currentPrice == null) continue;
+      expect(seeded.has(product.slug), `${product.slug} is orderable but not seeded`).toBe(true);
+    }
+  });
 });
 
 describe("solutions, layers, faq and policies", () => {

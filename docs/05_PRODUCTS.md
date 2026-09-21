@@ -76,9 +76,21 @@ of sending an empty message.
 
 ## 6. Nexus Host
 
-Hosting prices are published **only** for the three active plans. Reseller, white-label,
-managed and WordPress hosting tiers deliberately show *TBC* with an explicit note that the
-price is confirmed on request — the site never invents a hosting price.
+The three active plans are published with the monthly prices the owner confirmed on
+2026-09-21 — Starter **৳250**, Business **৳450**, Growth **৳850** per month, per site
+(`hostingPlans` in `data/products.ts`, rendered on `/nexus-host` and in the homepage host
+section). Reseller, white-label, managed and WordPress hosting tiers deliberately show
+*TBC* with an explicit note that the price is confirmed on request — the site never invents
+a hosting price.
+
+Two things that look like bugs but are deliberate:
+
+- **`/products/nexus-host-*` returns 404.** Hosting plans are not part of `products` and
+  stay out of `getProduct()`, so they cannot be ordered through `POST /api/orders`; each
+  plan's call to action is a WhatsApp/Messenger conversation, which is the primary channel
+  (§07). `/nexus-host` is the canonical page.
+- **Hosting is not seeded in `db/seed.sql`.** Hosting is plan content sold by conversation,
+  not an orderable catalogue row, so the seed carries only the orderable products.
 
 ## 7. Delivery capability vs the catalogue
 

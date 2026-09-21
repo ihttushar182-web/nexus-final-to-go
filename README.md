@@ -39,7 +39,7 @@ npm run verify     # typecheck → lint → tests → production build
 
 Individually: `npm run typecheck` · `npm run lint` · `npm run test` · `npm run build`.
 
-Current state: TypeScript clean, ESLint clean, 132 tests across 11 spec files, production
+Current state: TypeScript clean, ESLint clean, 133 tests across 11 spec files, production
 build green for every route.
 
 ## What's inside

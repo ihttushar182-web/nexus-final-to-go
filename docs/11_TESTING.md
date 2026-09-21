@@ -3,7 +3,7 @@
 ## 1. Running the suite
 
 ```bash
-npm run test          # vitest run — 11 files, 132 tests
+npm run test          # vitest run — 11 files, 133 tests
 npm run test:watch    # during development
 npm run typecheck     # tsc --noEmit
 npm run lint          # eslint .
@@ -18,7 +18,7 @@ npm run verify        # all of the above + next build
 | --- | --- |
 | `tests/audit-scoring.test.ts` | the scoring contract — Yes 10 / Partial 5 / No 0, six independent layers, the six maturity bands, deterministic priority selection (lowest layer → stated problem → goal → canonical order), and the rule that the evidence block must never claim scientific validation |
 | `tests/validation.test.ts` | server-side validation: complete audit required, invalid answer values and malformed email/phone rejected, field errors shaped for the UI, **no price and no payment status in the public order contract** |
-| `tests/catalogue.test.ts` | the catalogue is honest: the three headline packages exist at exactly ৳999 / ৳1,499 / ৳2,999 (was ৳1,900 / ৳2,599 / ৳4,499), unique slugs, no product without a name/description, savings computed only from real numbers, every solution maps to a real layer, exactly six layers, legal routes resolve, and **no percentage may be printed without a `source`** |
+| `tests/catalogue.test.ts` | the catalogue is honest: the three headline packages exist at exactly ৳999 / ৳1,499 / ৳2,999 (was ৳1,900 / ৳2,599 / ৳4,499), unique slugs, no product without a name/description, savings computed only from real numbers, **the SQL seed agreeing with the catalogue price for price (and every orderable product being seeded)**,, every solution maps to a real layer, exactly six layers, legal routes resolve, and **no percentage may be printed without a `source`** |
 | `tests/repository.test.ts` | the CRM and order backbone: audit round-trip, lead de-duplication on email + product, status/search filters, append-only lead events, server-computed order totals, a new order is never verified, the payment lifecycle, customer reuse, verified-only revenue, tickets, webhook logs, durability across instances |
 | `tests/payment-state.test.ts` | the money rules: verified is sticky, production/delivery/cancelled never regress, a rejection can be resubmitted, and only an explicit verification marks a payment verified |
 | `tests/content-integrity.test.ts` | bilingual completeness across all of `/data` and the dictionaries, no leaked CJK characters, every insight section renders in both languages, every navigation link resolves to a real route (including dynamic segments) |
