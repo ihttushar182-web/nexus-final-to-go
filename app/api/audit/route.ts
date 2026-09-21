@@ -33,6 +33,12 @@ export async function POST(request: Request) {
   }
 
   const input = parsed.data;
+  if (input.company_website) {
+    // Honeypot filled — accept silently so bots do not learn the rule.
+    logger.warn("audit", "Honeypot triggered");
+    return apiSuccess({ id: "ignored" }, 202);
+  }
+
   const problemOption = findProblemOption(input.biggestProblem);
   const goalOption = findGoalOption(input.goal);
   const answers = Object.fromEntries(layerIds.map((layer) => [layer, input.answers[layer]])) as typeof input.answers;

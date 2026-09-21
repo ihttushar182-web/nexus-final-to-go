@@ -20,6 +20,14 @@ export const localeSchema = z.enum(["bn", "en"]);
 
 export const auditAnswerSchema = z.enum(["yes", "partial", "no"]);
 
+/**
+ * Spam honeypot. The field is hidden from real visitors, so any value in it
+ * means a bot. It is deliberately *accepted* by the schema (rather than
+ * rejected with a 422 that names the field) so each route can drop the
+ * submission silently and return a normal success response.
+ */
+export const honeypotField = z.string().max(200).optional();
+
 export const auditSubmissionSchema = z.object({
   businessName: z.string().trim().min(2, "Business name is required").max(160),
   businessLink: z.string().trim().max(200).optional().or(z.literal("")),
@@ -40,6 +48,7 @@ export const auditSubmissionSchema = z.object({
   source: z.string().trim().max(60).optional(),
   utm: z.record(z.string(), z.string().max(200)).optional(),
   locale: localeSchema.optional(),
+  company_website: honeypotField,
 });
 export type AuditSubmissionInput = z.infer<typeof auditSubmissionSchema>;
 
@@ -56,8 +65,7 @@ export const leadSchema = z.object({
   serviceInterest: z.string().trim().max(120).optional(),
   productInterest: z.string().trim().max(120).optional(),
   notes: z.string().trim().max(1000).optional(),
-  /** Honeypot — must stay empty. */
-  company_website: z.string().max(0).optional().or(z.literal("")),
+  company_website: honeypotField,
   utm: z.record(z.string(), z.string().max(200)).optional(),
 });
 export type LeadInput = z.infer<typeof leadSchema>;
@@ -77,7 +85,7 @@ export const orderSchema = z.object({
   quantity: z.coerce.number().int().min(1).max(20).default(1),
   notes: z.string().trim().max(1000).optional(),
   paymentMethod: z.string().trim().max(40).optional(),
-  company_website: z.string().max(0).optional().or(z.literal("")),
+  company_website: honeypotField,
 });
 
 export const paymentSubmissionSchema = z.object({

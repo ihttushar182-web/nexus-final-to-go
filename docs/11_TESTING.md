@@ -3,7 +3,7 @@
 ## 1. Running the suite
 
 ```bash
-npm run test          # vitest run — 10 files, 95 tests
+npm run test          # vitest run — 11 files, 132 tests
 npm run test:watch    # during development
 npm run typecheck     # tsc --noEmit
 npm run lint          # eslint .
@@ -25,6 +25,7 @@ npm run verify        # all of the above + next build
 | `tests/proxy.test.ts` | no soft 404s: every real product/solution/insight slug passes, unknown slugs return 404, listing pages and unrelated routes are untouched |
 | `tests/whatsapp.test.ts` | the WhatsApp contract: product name and link encoded into the prefilled message, language-aware wording, number from configuration, and a Messenger link that never dead-ends |
 | `tests/capabilities.test.ts` | the commercial inventory: every letter A–W covered exactly once, **every phrase from the owner's declared capability list mapped to a real home** (nothing dropped), every capability tied to a real family/layer/solution/product, scoped work marked as scoped, and the honesty rules — no price anywhere, no guarantee language, technology positioned as subordinate |
+| `tests/api.test.ts` | the HTTP contract itself: the route handlers are imported and called the way Next calls them, with `next/headers` stubbed and an isolated local database. Covers health fields; audit scoring, storage, validation, malformed JSON and the 8/minute limit; the honeypot dropping silently on every public form without storing an audit or a lead; **server-side pricing** (a client that sends `unitPrice`/`total`/`price` still gets ৳999 from the catalogue, and an unorderable product is refused rather than priced); payments staying `submitted` until a human verifies, and verification never being undone by a resubmission; admin auth (wrong password, cookie issuance, session GET/DELETE, unauthenticated PATCH, event trail); webhooks (unknown event, bad secret, signed creation, idempotent replay, fail-closed without `N8N_WEBHOOK_SECRET`); and search safety |
 | `tests/utils.test.ts` | formatting (currency, percent, dates, relative time), localisation helpers returning safe fallbacks, and validators — including that `isBangladeshiPhone` accepts `01814716713`, `1814716713`, `+8801814716713` and `880 1814-716713`, and rejects `12345` |
 
 ## 3. Test conventions

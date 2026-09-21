@@ -36,6 +36,8 @@ interface FormState {
   name: string;
   email: string;
   whatsapp: string;
+  /** Honeypot — hidden from visitors, never required. */
+  company_website: string;
 }
 
 const initialState: FormState = {
@@ -57,6 +59,7 @@ const initialState: FormState = {
   name: "",
   email: "",
   whatsapp: "",
+  company_website: "",
 };
 
 /** Prompt shown for each layer inside step 2. */
@@ -440,6 +443,19 @@ export function AuditForm({ locale }: { locale: Locale }) {
               inputMode="tel"
             />
           </Field>
+
+          {/* Honeypot: hidden from users, catches naive bots. */}
+          <div className="hidden" aria-hidden>
+            <label htmlFor="company_website">Company website</label>
+            <input
+              id="company_website"
+              name="company_website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.company_website}
+              onChange={(event) => update("company_website", event.target.value)}
+            />
+          </div>
 
           <div className="sm:col-span-2">
             <Alert tone="info">

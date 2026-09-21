@@ -25,7 +25,7 @@ brochure site. It contains:
 | Validation | Zod v4 | every public endpoint validates server-side |
 | Persistence | Repository pattern over two drivers | Supabase (production) / local JSON (dev, preview) |
 | Auth | Signed HMAC cookie + scrypt password | `lib/auth/session.ts` |
-| Tests | Vitest | 10 spec files, 95 tests |
+| Tests | Vitest | 11 spec files, 132 tests |
 | Icons | lucide-react | brand marks live in `components/ui/BrandIcons.tsx` |
 | Fonts | Self-hosted woff2 via `next/font/local` | `app/fonts/` + `scripts/sync-fonts.mjs` |
 
@@ -130,7 +130,7 @@ real `404` with the styled not-found page. `tests/proxy.test.ts` locks this in.
 ```bash
 npm run typecheck   # tsc --noEmit
 npm run lint        # eslint .            (flat config)
-npm run test        # vitest run          (95 tests)
+npm run test        # vitest run          (132 tests)
 npm run build       # next build          (all routes)
 npm run verify      # all of the above, in order
 ```

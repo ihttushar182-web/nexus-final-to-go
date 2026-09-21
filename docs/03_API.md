@@ -7,8 +7,10 @@ All endpoints are Next.js route handlers under `app/api/`. Every one of them:
 - returns a consistent envelope: `{ ok: true, ... }` or `{ ok: false, error, fieldErrors? }`,
 - logs through `lib/logger.ts` (never `console.log` with customer data).
 
-Error codes: `400` malformed JSON · `401` unauthenticated · `404` not found ·
-`405` method not allowed · `422` validation failed · `429` rate limited · `500` server error.
+Status codes: `201` created (audit, lead, contact, order, accepted webhook) · `202` accepted
+and deliberately discarded (honeypot) · `400` malformed JSON · `401` unauthenticated ·
+`404` not found · `405` method not allowed · `422` validation failed · `429` rate limited ·
+`500` server error.
 
 ---
 
@@ -53,8 +55,16 @@ on *(email + product interest)*.
 
 ### `POST /api/contact`
 Contact form. Extends the lead schema with `subject` and `message` (min 10 chars) and
-accepts `source`, `channel`, `utm`, plus a honeypot field `company_website` which must be
-empty. A bot that fills it gets `422`.
+accepts `source`, `channel`, `utm`.
+
+**Spam honeypot.** Every public write endpoint (`/api/audit`, `/api/contact`, `/api/leads`,
+`/api/orders`) carries a `company_website` field that is hidden from real visitors, and the
+shared `honeypotField` schema entry **accepts any value on purpose**. Each route checks the
+field itself and answers `202 { ok: true, id: "ignored" }` — a submission is neither stored
+nor rejected, so a bot cannot tell which field gave it away. Do not tighten that schema to
+`max(0)`: doing so makes the route check unreachable and leaks the field name back to the
+bot in a `422 fieldErrors` payload. `tests/api.test.ts` asserts both the `202` and the
+absence of a stored record.
 
 ### `POST /api/orders`
 Creates an order **from a product slug**, never from a client-supplied price:
@@ -124,7 +134,9 @@ the n8n payment webhook with `verified: true`.
   Missing header → `401`. **If the secret is unset in production the endpoint fails
   closed**; in development it accepts and warns.
 - Idempotency: send `idempotencyKey`; a repeat is acknowledged as
-  `{ "ok": true, "duplicate": true }` without side effects.
+  `{ "ok": true, "duplicate": true, "id", "idempotencyKey" }` without side effects. The `id`
+  in that reply is the stored log entry for the **original** delivery — the created record
+  already exists and is never duplicated.
 - Every call is written to `webhook_logs` with `accepted` / `rejected` / `error`.
 
 ```jsonc
@@ -147,10 +159,15 @@ the n8n payment webhook with `verified: true`.
 
 | Scope | Limit |
 | --- | --- |
-| Public form posts (`/api/audit`, `/api/contact`, `/api/leads`, `/api/orders`, payment) | 20 / minute / IP |
-| Search | 60 / minute / IP |
-| Admin login | 6 / 5 minutes / IP |
-| Webhooks | secret-authenticated, plus the global limiter |
+| `/api/audit` | 8 / minute / IP |
+| `/api/contact` | 8 / minute / IP |
+| `/api/leads` | 10 / minute / IP |
+| `/api/orders` | 8 / minute / IP |
+| `/api/orders/{id}/payment` | 8 / minute / IP |
+| `/api/search` | 60 / minute / IP |
+| Admin login (`/api/admin/session`) | 6 / 5 minutes / IP |
+| Webhooks | 120 / minute / IP, plus secret authentication |
 
-Limits are configurable with `RATE_LIMIT_WINDOW_MS` and `RATE_LIMIT_MAX_REQUESTS`.
+Each limit is declared at the route's entry point. A global default is configurable with
+`RATE_LIMIT_WINDOW_MS` and `RATE_LIMIT_MAX_REQUESTS`.
 The limiter is in-memory: with multiple instances, move it to Redis or Supabase.

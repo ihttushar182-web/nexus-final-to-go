@@ -75,7 +75,15 @@ export async function POST(request: Request, { params }: { params: Promise<{ eve
       );
       if (duplicate) {
         logger.info("webhook", "Duplicate webhook ignored", { endpoint, key: payload.idempotencyKey });
-        return NextResponse.json({ ok: true, duplicate: true, id: duplicate.id });
+        // `id` is the stored log entry for the *original* delivery — the record it
+        // created already exists and must never be created twice. `idempotencyKey`
+        // is echoed back so the caller can correlate the replay.
+        return NextResponse.json({
+          ok: true,
+          duplicate: true,
+          id: duplicate.id,
+          idempotencyKey: payload.idempotencyKey,
+        });
       }
     }
 
