@@ -444,19 +444,6 @@ export function AuditForm({ locale }: { locale: Locale }) {
             />
           </Field>
 
-          {/* Honeypot: hidden from users, catches naive bots. */}
-          <div className="hidden" aria-hidden>
-            <label htmlFor="company_website">Company website</label>
-            <input
-              id="company_website"
-              name="company_website"
-              tabIndex={-1}
-              autoComplete="off"
-              value={form.company_website}
-              onChange={(event) => update("company_website", event.target.value)}
-            />
-          </div>
-
           <div className="sm:col-span-2">
             <Alert tone="info">
               {locale === "bn"
@@ -466,6 +453,20 @@ export function AuditForm({ locale }: { locale: Locale }) {
           </div>
         </fieldset>
       ) : null}
+
+      {/* Honeypot: hidden from users, catches naive bots. Kept outside the step
+          conditionals so it is present in the DOM at every step. */}
+      <div className="hidden" aria-hidden>
+        <label htmlFor="company_website">Company website</label>
+        <input
+          id="company_website"
+          name="company_website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.company_website}
+          onChange={(event) => update("company_website", event.target.value)}
+        />
+      </div>
 
       {/* navigation */}
       <div className="mt-7 flex flex-col-reverse gap-3 border-t border-line pt-5 sm:flex-row sm:items-center sm:justify-between">
