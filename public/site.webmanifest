@@ -1,0 +1,13 @@
+{
+  "name": "Nexus Lift — Connecting Sources, Lifting Business",
+  "short_name": "Nexus Lift",
+  "description": "Business systems & growth infrastructure for Bangladeshi businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1C2F4D",
+  "lang": "bn",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

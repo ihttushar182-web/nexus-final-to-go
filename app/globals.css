@@ -1,0 +1,310 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Nexus Lift design tokens (Build Spec §39)
+   Blue signals action and system connectivity.
+   Navy signals authority and management.
+   White / mist protect clarity.
+   ───────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-navy: #1c2f4d;
+  --color-navy-800: #24395c;
+  --color-navy-700: #2d4a75;
+  --color-nexus: #0048ac;
+  --color-nexus-600: #05509f;
+  --color-nexus-50: #eef4ff;
+  --color-accent: #52a1d9;
+  --color-accent-100: #e4f0fa;
+  --color-charcoal: #111827;
+  --color-mist: #f3f5f8;
+  --color-mist-200: #e9edf3;
+  --color-line: #d9dee7;
+  --color-success: #10814b;
+  --color-success-50: #e8f6ee;
+  --color-warning: #b45309;
+  --color-warning-50: #fdf3e3;
+  --color-danger: #b42318;
+  --color-danger-50: #fdeceb;
+
+  --font-display: var(--font-space-grotesk), "Segoe UI", system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-bengali: var(--font-hind-siliguri), var(--font-inter), system-ui, sans-serif;
+
+  --radius-card: 14px;
+
+  --shadow-card: 0 1px 2px rgba(17, 24, 39, 0.04), 0 8px 24px -12px rgba(28, 47, 77, 0.16);
+  --shadow-lift: 0 2px 4px rgba(17, 24, 39, 0.05), 0 18px 40px -22px rgba(28, 47, 77, 0.28);
+
+  --breakpoint-xs: 22.5rem; /* 360px — smallest supported viewport */
+}
+
+/* ─────────────────────────────── base layer ─────────────────────────────── */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Bengali text needs more line height and a Bengali-capable face */
+  :lang(bn) body,
+  [data-locale="bn"] body {
+    font-family: var(--font-bengali);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-navy);
+    text-wrap: balance;
+  }
+
+  [data-locale="bn"] h1,
+  [data-locale="bn"] h2,
+  [data-locale="bn"] h3,
+  [data-locale="bn"] h4 {
+    font-family: var(--font-bengali);
+    letter-spacing: -0.01em;
+    line-height: 1.45;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :lang(bn) p,
+  :lang(bn) li,
+  [data-locale="bn"] p,
+  [data-locale="bn"] li {
+    line-height: 1.85;
+  }
+
+  /* Visible focus for keyboard users only */
+  :focus-visible {
+    outline: 2px solid var(--color-nexus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-accent-100);
+    color: var(--color-navy);
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* 16px minimum on inputs prevents iOS zoom-on-focus (QA FUN-08) */
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1rem);
+  }
+}
+
+/* ───────────────────────────── component layer ──────────────────────────── */
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .section {
+    padding-block: 3.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-block: 6rem;
+    }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-nexus);
+  }
+
+  .surface {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--color-accent) 55%, var(--color-line));
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* subtle blueprint grid used behind hero / dark sections */
+  .grid-backdrop {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .grid-backdrop-light {
+    background-image: linear-gradient(rgba(28, 47, 77, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28, 47, 77, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .prose-nl h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.85rem;
+    font-size: 1.5rem;
+    line-height: 1.35;
+  }
+
+  .prose-nl h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.2rem;
+  }
+
+  .prose-nl p {
+    margin-bottom: 1rem;
+    color: #374151;
+    line-height: 1.8;
+  }
+
+  .prose-nl ul {
+    margin: 1rem 0 1.5rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .prose-nl li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: #374151;
+  }
+
+  .prose-nl li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-accent);
+  }
+
+  /* Scrollbar for admin data tables */
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-x::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .scroll-x::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 999px;
+  }
+}
+
+/* ─────────────────────────────── utilities ──────────────────────────────── */
+@utility text-balance-tight {
+  text-wrap: balance;
+}
+
+@utility animate-rise {
+  animation: nl-rise 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes nl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nl-bar {
+  from {
+    width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+}
