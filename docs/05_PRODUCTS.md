@@ -80,7 +80,25 @@ Hosting prices are published **only** for the three active plans. Reseller, whit
 managed and WordPress hosting tiers deliberately show *TBC* with an explicit note that the
 price is confirmed on request — the site never invents a hosting price.
 
-## 7. Changing a price — checklist
+## 7. Delivery capability vs the catalogue
+
+`/capabilities` publishes the **23 delivery lines** (A–W) the business can deliver, grouped
+into six system families. It is deliberately wider than the catalogue: it answers
+"do you build RAG systems? client portals? a SaaS MVP?" without inventing price, scope or a
+delivery promise for genuinely custom work.
+
+Rules that keep the two from contradicting each other:
+
+- **A capability card never shows a price.** Either it links to a catalogue product that
+  carries the price, or it states that scope and cost are confirmed in conversation.
+- **Custom lines are marked `engagement: "scoped"`** (currently **S** AI SaaS MVP and
+  **W** Custom Business Tools). A test fails if a scoped line points at a product.
+- **The technology stack is published, but subordinate** — it explains what the work runs
+  on, never what is being sold.
+
+Full inventory, merges and honesty rules: `docs/14_CAPABILITIES.md`.
+
+## 8. Changing a price — checklist
 
 1. Edit `data/products.ts` (`currentPrice` / `originalPrice`).
 2. Update the table in this document.

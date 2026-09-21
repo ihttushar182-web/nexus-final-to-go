@@ -8,7 +8,7 @@
 A production Next.js application that is **the business infrastructure itself**, not a
 brochure site. It contains:
 
-- the public website (marketing, products, framework, insights, legal),
+- the public website (marketing, capabilities, products, framework, insights, legal),
 - the lead-generation funnel (Free Business Audit) with real scoring and persistence,
 - a CRM / admin area where staff work leads, orders, payments and audits,
 - an API surface for the marketing automation platform (n8n),
@@ -25,7 +25,7 @@ brochure site. It contains:
 | Validation | Zod v4 | every public endpoint validates server-side |
 | Persistence | Repository pattern over two drivers | Supabase (production) / local JSON (dev, preview) |
 | Auth | Signed HMAC cookie + scrypt password | `lib/auth/session.ts` |
-| Tests | Vitest | 9 spec files, 79 tests |
+| Tests | Vitest | 10 spec files, 95 tests |
 | Icons | lucide-react | brand marks live in `components/ui/BrandIcons.tsx` |
 | Fonts | Self-hosted woff2 via `next/font/local` | `app/fonts/` + `scripts/sync-fonts.mjs` |
 
@@ -41,7 +41,7 @@ components/          presentation, grouped by domain
   home/              homepage sections in the §16 order
   audit/             multi-step audit form
   admin/             admin login, shell, editors
-  …                  product, solutions, insights, framework, contact, search, legal, portal
+  …                  capabilities, product, solutions, insights, framework, contact, search, legal, portal
 config/site.ts       brand, contact, business hours, payment methods, service persona
 data/                THE CONTENT SOURCE OF TRUTH (see §5)
 db/                  schema.sql + seed.sql for PostgreSQL/Supabase
@@ -79,6 +79,7 @@ Every fact a customer can read comes from one of these files — never from a co
 | --- | --- |
 | `config/site.ts` | brand name, tagline, contact details, business hours, payment methods, service persona |
 | `data/products.ts` | 11 products + hosting plans, all prices, deliverables, delivery times, revisions |
+| `data/capabilities.ts` | 23 delivery lines (A–W) in 6 system families, the declared-capability coverage register, technology stack, and the "sell outcomes, not technology" positioning |
 | `data/layers.ts` | the six connected layers, growth methodology, maturity ladder |
 | `data/solutions.ts` | 11 solution categories and their layer mapping |
 | `data/faq.ts` | FAQ items with a `source` field per answer |
@@ -129,7 +130,7 @@ real `404` with the styled not-found page. `tests/proxy.test.ts` locks this in.
 ```bash
 npm run typecheck   # tsc --noEmit
 npm run lint        # eslint .            (flat config)
-npm run test        # vitest run          (79 tests)
+npm run test        # vitest run          (95 tests)
 npm run build       # next build          (all routes)
 npm run verify      # all of the above, in order
 ```

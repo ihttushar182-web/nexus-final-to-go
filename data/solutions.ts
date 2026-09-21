@@ -63,7 +63,7 @@ export const solutionCategories: SolutionCategory[] = [
       bn: ["Organogram", "Role & Responsibility Matrix", "Authority Matrix", "Reporting Structure"],
       en: ["Organogram", "Role & responsibility matrix", "Authority matrix", "Reporting structure"],
     },
-    bestFor: { bn: "৫–৫০ জনের টিম, যেখানে কাজের সীমানা अस्पष्ट।", en: "Teams of 5–50 where task boundaries are unclear." },
+    bestFor: { bn: "৫–৫০ জনের টিম, যেখানে কাজের সীমানা অস্পষ্ট।", en: "Teams of 5–50 where task boundaries are unclear." },
     outcomes: {
       bn: ["দায়িত্ব পরিষ্কার", "Founder-এর ওপর নির্ভরতা কমে", "Escalation কমে"],
       en: ["Clear accountability", "Less founder dependency", "Fewer escalations"],

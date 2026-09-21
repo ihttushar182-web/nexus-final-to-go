@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRoutes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
     { path: "/", priority: 1, changeFrequency: "weekly" },
+    { path: "/capabilities", priority: 0.9, changeFrequency: "monthly" },
     { path: "/solutions", priority: 0.9, changeFrequency: "monthly" },
     { path: "/products", priority: 0.9, changeFrequency: "weekly" },
     { path: "/business-audit", priority: 0.95, changeFrequency: "monthly" },

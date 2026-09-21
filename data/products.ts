@@ -403,7 +403,7 @@ export const products: Product[] = [
       en: "When the team grows without structure, confusion grows instead. We build a clear organisational structure, role definitions and authority matrix for your business.",
     },
     targetCustomer: {
-      bn: "৫–৫০ জনের টিম যেখানে কাজের সীমানা अस्पष्ट এবং সব সিদ্ধান্ত Founder-এর কাছে আসে।",
+      bn: "৫–৫০ জনের টিম যেখানে কাজের সীমানা অস্পষ্ট এবং সব সিদ্ধান্ত Founder-এর কাছে আসে।",
       en: "Teams of 5–50 where task boundaries are unclear and every decision reaches the founder.",
     },
     problem: {

@@ -178,3 +178,63 @@ No registered company name, trade licence number, address or VAT/BIN number appe
 source documents, so none is published and the footer shows only contact channels.
 **Question:** supply the registered details if they should appear on invoices, the contact
 page or the legal pages.
+
+---
+
+## F. Capability inventory (added after the owner supplied the product-line list)
+
+### F1. Which capability lines should become priced products? — OPEN
+23 lines are published as delivery capability. Only some are priceable today: the three
+Brand Profile packages, plus products carrying the AI, CRM, dashboard, website, SOP and
+document lines. **Two lines are explicitly `engagement: "scoped"`** and show no price:
+**S** AI SaaS MVP and **W** Custom Business Tools.
+
+**Question:** which of the remaining lines should get a published starting price, and which
+should stay quote-only? A published price makes the line easy to buy and easy to compare; a
+quote-only line protects scope flexibility. This is a commercial call, not a technical one.
+
+### F2. AI SaaS MVP scope boundary — OPEN
+An MVP can mean anything from a clickable prototype to a live product with billing. The
+current page says the first version carries the provable core features, accounts, payment
+readiness and measurement — but sets no boundary on users, features or timeline.
+**Question:** define the MVP boundary (what is always included, what is billed separately)
+so scoping conversations start from a shared definition.
+
+### F3. Data handling for RAG / knowledge assistants — OPEN
+**T** RAG / Knowledge Assistant and **U** AI Document Automation both process the client's
+own documents, which may contain customer data, contracts or financial records. The site
+makes no claim about where that data is stored, how long it is retained, or whether it trains
+anything.
+**Question:** confirm the policy (storage location, retention, whether documents are ever
+used for model training, deletion on request) so it can be stated accurately — and check it
+against `data/policies.ts`. Until this is answered, avoid promising anything about it in a
+sales conversation.
+
+### F4. Technology disclosure level — OPEN
+The full stack (n8n, Make, Zapier, Next.js, React, Node.js, PostgreSQL, Supabase) is now
+published with a "means, not the goal" framing. Publishing it helps buyers who search for
+tools by name and reassures technical stakeholders, but it also invites comparison shopping
+on tools rather than outcomes.
+**Question:** keep the full list public, or summarise it as capabilities only? (Current
+default: public, and clearly subordinate.)
+
+### F5. Personal / portfolio lines and the SME positioning — OPEN
+**P**, **Q** and **R** (Personal Website, Personal Brand Website, Portfolio Website) sit under
+this site's SME systems positioning. They are genuinely offered, but they serve a different
+buyer (an individual, not a business) and a lower price point.
+**Question:** keep them on `/capabilities`, or give them their own entry point? Their
+presence changes how the brand reads to an SME owner evaluating a systems engagement.
+
+### F6. Delivery capacity per line — OPEN
+The published inventory implies the business can deliver all 23 lines. It says nothing about
+availability, lead times or concurrent capacity. If several lines are effectively
+best-effort or partner-delivered, the page should say so rather than let a buyer assume the
+same delivery standard throughout.
+**Question:** which lines are actively delivered in-house today, and what is the realistic
+concurrent capacity?
+
+### F7. Certification, partnership or compliance claims — OPEN
+No certifications, vendor partnerships or compliance accreditations are published, because
+none was stated. If any exist (for example a platform partner tier or an information-security
+accreditation), they are a legitimate trust signal that is currently missing.
+**Question:** supply any verifiable credentials worth publishing.

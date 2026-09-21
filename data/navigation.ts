@@ -13,6 +13,14 @@ export interface NavItem {
  */
 export const primaryNav: NavItem[] = [
   {
+    href: "/capabilities",
+    label: { bn: "Capabilities", en: "Capabilities" },
+    description: {
+      bn: "আমরা কী কী সিস্টেম বানাতে পারি — ফলাফল দিয়ে সাজানো",
+      en: "Every system we can build, organised by the outcome it produces",
+    },
+  },
+  {
     href: "/solutions",
     label: { bn: "Solutions", en: "Solutions" },
     description: {
@@ -62,6 +70,17 @@ export const footerNav: { title: LocalizedText; items: NavItem[] }[] = [
       { href: "/framework", label: { bn: "Our Framework", en: "Our Framework" } },
       { href: "/case-studies", label: { bn: "Case Studies", en: "Case Studies" } },
       { href: "/contact", label: { bn: "Contact", en: "Contact" } },
+    ],
+  },
+  {
+    title: { bn: "Capabilities", en: "Capabilities" },
+    items: [
+      { href: "/capabilities", label: { bn: "All Capabilities", en: "All Capabilities" } },
+      { href: "/capabilities#ai-systems", label: { bn: "AI Systems", en: "AI Systems" } },
+      { href: "/capabilities#automation-integration", label: { bn: "Automation & Integration", en: "Automation & Integration" } },
+      { href: "/capabilities#customer-revenue", label: { bn: "Customer & Revenue Systems", en: "Customer & Revenue Systems" } },
+      { href: "/capabilities#data-control", label: { bn: "Dashboards & Control", en: "Dashboards & Control" } },
+      { href: "/capabilities#platforms", label: { bn: "Platforms & Portals", en: "Platforms & Portals" } },
     ],
   },
   {

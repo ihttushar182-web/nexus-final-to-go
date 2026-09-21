@@ -3,6 +3,8 @@ import { getLocale } from "@/lib/i18n/server";
 import { businessLayers } from "@/data/layers";
 import { siteConfig } from "@/config/site";
 import { t } from "@/lib/utils";
+import { capabilityPositioning } from "@/data/capabilities";
+import { Badge } from "@/components/ui/Badge";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { PageHero, BreadcrumbJsonLd } from "@/components/ui/Breadcrumb";
 import { CheckList } from "@/components/ui/Timeline";
@@ -130,6 +132,36 @@ export default async function AboutPage() {
                     ? "একটি business infrastructure and growth solutions ecosystem।"
                     : "A business infrastructure and growth solutions ecosystem."}
                 </p>
+              </div>
+
+              {/* The combined strength, in the business's own words. This is the difference
+                  that a single-service competitor cannot copy — so it is stated plainly. */}
+              <div className="surface p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  {locale === "bn" ? "আমাদের আসল শক্তি" : "Where our strength actually comes from"}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  {locale === "bn"
+                    ? "কোড লেখা আমাদের একমাত্র কাজ নয়। আমাদের আসল শক্তি হলো কয়েকটি দক্ষতা একসাথে থাকা:"
+                    : "Writing code is not the whole of our work. Our real strength is that several capabilities sit together:"}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {capabilityPositioning.combination.map((item) => (
+                    <Badge key={item.en} tone="brand" size="sm">
+                      {t(item, locale)}
+                    </Badge>
+                  ))}
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                  {locale === "bn"
+                    ? "একটি সেবা আলাদাভাবে কেউ দিতে পারে। কিন্তু ব্যবসা বোঝা, সিস্টেম ডিজাইন আর বাস্তবায়ন একই লোকের হাতে থাকলে ফলাফল ভিন্ন হয়।"
+                    : "Any single one of these can be bought elsewhere. What changes the outcome is having the business understanding, the system design and the implementation in the same hands."}
+                </p>
+                <div className="mt-4">
+                  <ButtonLink href="/capabilities" variant="outline">
+                    {locale === "bn" ? "২৩টি Capability দেখুন" : "See the 23 capabilities"}
+                  </ButtonLink>
+                </div>
               </div>
             </div>
           </div>

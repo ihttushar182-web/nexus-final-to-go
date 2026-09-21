@@ -3,7 +3,7 @@
 ## 1. Running the suite
 
 ```bash
-npm run test          # vitest run — 9 files, 79 tests
+npm run test          # vitest run — 10 files, 95 tests
 npm run test:watch    # during development
 npm run typecheck     # tsc --noEmit
 npm run lint          # eslint .
@@ -24,6 +24,7 @@ npm run verify        # all of the above + next build
 | `tests/content-integrity.test.ts` | bilingual completeness across all of `/data` and the dictionaries, no leaked CJK characters, every insight section renders in both languages, every navigation link resolves to a real route (including dynamic segments) |
 | `tests/proxy.test.ts` | no soft 404s: every real product/solution/insight slug passes, unknown slugs return 404, listing pages and unrelated routes are untouched |
 | `tests/whatsapp.test.ts` | the WhatsApp contract: product name and link encoded into the prefilled message, language-aware wording, number from configuration, and a Messenger link that never dead-ends |
+| `tests/capabilities.test.ts` | the commercial inventory: every letter A–W covered exactly once, **every phrase from the owner's declared capability list mapped to a real home** (nothing dropped), every capability tied to a real family/layer/solution/product, scoped work marked as scoped, and the honesty rules — no price anywhere, no guarantee language, technology positioned as subordinate |
 | `tests/utils.test.ts` | formatting (currency, percent, dates, relative time), localisation helpers returning safe fallbacks, and validators — including that `isBangladeshiPhone` accepts `01814716713`, `1814716713`, `+8801814716713` and `880 1814-716713`, and rejects `12345` |
 
 ## 3. Test conventions

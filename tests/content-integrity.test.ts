@@ -86,8 +86,12 @@ describe("bilingual content integrity (§56)", () => {
     expect(gaps).toEqual([]);
   });
 
-  it("contains no stray CJK characters leaked into the Bangla or English copy", () => {
-    const cjk = /[\u3000-\u303f\u3040-\u30ff\u4e00-\u9fff\uac00-\ud7af]/;
+  it("contains no characters from a foreign script leaked into the copy", () => {
+    // Started as a CJK check after CJK text was found in the content files, then widened
+    // after Devanagari, Armenian and Hangul characters were each found replacing a
+    // Bengali word. U+0964 (the danda "।") is shared with Bengali and is legitimate.
+    const cjk =
+      /[\u3000-\u303f\u3040-\u30ff\u4e00-\u9fff\uac00-\ud7af\u0530-\u058f\u0590-\u05ff\u0600-\u06ff\u0370-\u03ff\u0400-\u04ff\u0900-\u0963\u0965-\u097f\u0e00-\u0e7f]/;
     const offenders: string[] = [];
     for (const [name, mod] of Object.entries(modules)) {
       const json = JSON.stringify(mod);

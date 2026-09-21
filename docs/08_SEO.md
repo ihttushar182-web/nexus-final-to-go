@@ -16,6 +16,7 @@ Dynamic routes resolve metadata from the content layer — e.g. `/products/[slug
 | Page | Schema |
 | --- | --- |
 | All pages | `Organization` (`components/seo/OrganizationSchema.tsx`) |
+| `/capabilities` | `ItemList` of `Service` entries — one per delivery line, described by its outcome |
 | Homepage | `FAQPage` over the selected home FAQs |
 | `/products/[slug]` | `Product` — `offers` is **omitted when the price is TBC** |
 | `/insights/[slug]` | `Article` / `BlogPosting` per `article.schemaType` |

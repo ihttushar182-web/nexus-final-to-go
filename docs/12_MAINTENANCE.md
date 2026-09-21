@@ -30,6 +30,15 @@
 1. `data/faq.ts`, with a `source` describing where the answer came from.
 2. Reference its id from the product or page that should show it.
 
+**A new capability or product line**
+1. `data/capabilities.ts` — outcome first, then problem, then the system. Give it the next
+   free letter and map every phrase it carries in `declaredCapabilities`.
+2. If it is priceable, add the product in `data/products.ts` and set `engagement: "product"`;
+   if it is genuinely custom, leave it `"scoped"` — never guess a price.
+3. `npm run test` — the capability spec fails on an unmapped phrase, a broken reference, a
+   leaked price or guarantee language.
+4. Update the tables in `docs/14_CAPABILITIES.md`.
+
 **A new product**
 1. `data/products.ts` — include the SEO fields, deliverables, delivery time, revisions,
    requirements and FAQ ids. If the price is not confirmed, use `null` (renders as TBC)

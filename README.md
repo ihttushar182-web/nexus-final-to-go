@@ -39,14 +39,15 @@ npm run verify     # typecheck → lint → tests → production build
 
 Individually: `npm run typecheck` · `npm run lint` · `npm run test` · `npm run build`.
 
-Current state: TypeScript clean, ESLint clean, 79 tests across 9 spec files, production
+Current state: TypeScript clean, ESLint clean, 95 tests across 10 spec files, production
 build green for every route.
 
 ## What's inside
 
 | Area | Where | Notes |
 | --- | --- | --- |
-| Public site | `app/` | home, about, framework, solutions, products, insights, case studies, FAQ, contact, book-call, legal |
+| Public site | `app/` | home, about, framework, **capabilities**, solutions, products, insights, case studies, FAQ, contact, book-call, legal |
+| Capabilities | `app/capabilities/` | the 23 delivery lines (A–W) in 6 system families, sold as outcomes |
 | Free Business Audit | `app/business-audit/` | four-step form → scored result page, stored as a CRM lead |
 | Admin & CRM | `app/admin/` | auth-gated: dashboard, leads, audits, orders, customers, messages, products, content, settings |
 | API | `app/api/` | audit, leads, contact, orders, payments, search, health, admin, n8n webhooks |
@@ -83,9 +84,12 @@ back out of `verified`, confirmation or production. `tests/payment-state.test.ts
 | [11 Testing](docs/11_TESTING.md) | what each spec protects + the manual QA checklist |
 | [12 Maintenance](docs/12_MAINTENANCE.md) | routine tasks, how to change prices/content, gotchas |
 | [13 Open Questions](docs/13_OPEN_QUESTIONS.md) | **every unresolved business decision and placeholder** |
+| [14 Capabilities](docs/14_CAPABILITIES.md) | the 23 product lines, family grouping, merges, honesty rules |
 
 ## Principles this codebase is held to
 
+- **Sell outcomes and systems, not technologies.** Every capability is written as the result
+  it produces; the tools that build it are published but explicitly subordinate.
 - **Never invent a business fact.** Prices, delivery times, policies and statistics come
   from the business documents or they are marked *TBC* and logged in `docs/13_OPEN_QUESTIONS.md`.
 - **No unsupported claims.** No market-leader language, no guarantees, no fake urgency, no

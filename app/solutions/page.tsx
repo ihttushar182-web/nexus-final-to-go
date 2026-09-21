@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getLocale } from "@/lib/i18n/server";
 import { solutionCategories } from "@/data/solutions";
 import { businessLayers } from "@/data/layers";
@@ -111,6 +112,26 @@ export default async function SolutionsPage() {
           <ButtonLink href="/framework" variant="outline" size="lg">
             {locale === "bn" ? "Framework দেখুন" : "Explore the framework"}
           </ButtonLink>
+        </div>
+
+        {/* Cross-link to the delivery inventory. Solutions are what the business needs;
+            capabilities are what we can actually build. */}
+        <div className="surface mt-8 p-6">
+          <SectionHeader
+            eyebrow={locale === "bn" ? "Capabilities" : "Capabilities"}
+            title={locale === "bn" ? "প্রতিটি Solution-এর পেছনে যে সিস্টেমগুলো আছে" : "The systems behind every solution"}
+            description={
+              locale === "bn"
+                ? "AI Automation, Agents, n8n, Custom CRM, Dashboard, Website, Portal — ২৩টি Delivery Line, ৬টি System Family-তে সাজানো, প্রতিটির ফলাফল দিয়ে লেখা।"
+                : "AI automation, agents, n8n, custom CRM, dashboards, websites and portals — 23 delivery lines in six system families, each written as the outcome it produces."
+            }
+            action={
+              <ButtonLink href="/capabilities" variant="outline">
+                {locale === "bn" ? "সব Capabilities দেখুন" : "See all capabilities"}
+                <ArrowRight className="size-4" aria-hidden />
+              </ButtonLink>
+            }
+          />
         </div>
       </Section>
 
